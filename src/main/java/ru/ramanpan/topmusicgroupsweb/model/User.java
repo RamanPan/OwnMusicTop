@@ -25,6 +25,8 @@ public class User extends BasicEntity {
 
     private String avatar;
 
+    private String description;
+
     @Column(nullable = false)
     private String email;
 
