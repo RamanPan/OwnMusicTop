@@ -38,6 +38,10 @@ public class User extends BasicEntity {
 
     private Integer countAddedGroups;
 
+    private Integer countAddedSongs;
+
+    private Integer countAddedAlbums;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

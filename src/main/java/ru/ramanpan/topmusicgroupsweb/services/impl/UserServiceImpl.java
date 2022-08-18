@@ -11,6 +11,7 @@ import ru.ramanpan.topmusicgroupsweb.repositories.UserRepo;
 import ru.ramanpan.topmusicgroupsweb.services.UserService;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -18,10 +19,19 @@ public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
     private final BCryptPasswordEncoder encoder;
     @Override
-    public void registration(User user) {
+    public void registration(UserDTO u) {
+        User user = new User();
+        user.setEmail(u.getEmail());
+        user.setLogin(u.getLogin());
+        user.setDescription(u.getDescription());
+        user.setAvatar(" ");
         user.setStatus(Status.ACTIVE);
         user.setDateCreated(LocalDate.now());
-        user.setPassword(encoder.encode(user.getPassword()));
+        user.setPassword(encoder.encode(u.getPassword()));
+        user.setCountAddedGroups(0);
+        user.setCountCreatedTops(0);
+        user.setCountAddedAlbums(0);
+        user.setCountAddedSongs(0);
         userRepo.save(user);
     }
 
@@ -41,7 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(int id) {
-
+    public void delete(Long id) {
+        Objects.requireNonNull(userRepo.findById(id).orElse(null)).setStatus(Status.DELETED);
     }
 }

@@ -4,11 +4,11 @@ import ru.ramanpan.topmusicgroupsweb.DTO.UserDTO;
 import ru.ramanpan.topmusicgroupsweb.model.User;
 
 public interface UserService {
-    void registration(User user);
+    void registration(UserDTO u);
 
     User findByEmailOrLogin(String data);
 
     void updateLogin(UserDTO u);
 
-    void delete(int id);
+    void delete(Long id);
 }

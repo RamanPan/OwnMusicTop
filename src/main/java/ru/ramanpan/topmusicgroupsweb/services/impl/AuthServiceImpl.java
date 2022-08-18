@@ -11,6 +11,7 @@ import ru.ramanpan.topmusicgroupsweb.DTO.JwtRequestDTO;
 import ru.ramanpan.topmusicgroupsweb.DTO.JwtResponseDTO;
 import ru.ramanpan.topmusicgroupsweb.model.Token;
 import ru.ramanpan.topmusicgroupsweb.model.User;
+import ru.ramanpan.topmusicgroupsweb.model.enums.Status;
 import ru.ramanpan.topmusicgroupsweb.security.JwtAuthentication;
 import ru.ramanpan.topmusicgroupsweb.security.JwtProvider;
 import ru.ramanpan.topmusicgroupsweb.services.AuthService;
@@ -29,12 +30,15 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public JwtResponseDTO login(@NonNull JwtRequestDTO authRequest) {
         User user = userService.findByEmailOrLogin(authRequest.getEmail());
-        if (user.getPassword().equals(encoder.encode(authRequest.getPassword()))) {
-            String accessToken = jwtProvider.generateAccessToken(user);
-            String refreshToken = jwtProvider.generateRefreshToken(user);
-            tokenService.save(new Token(user.getEmail(), refreshToken));
-            return new JwtResponseDTO(accessToken, refreshToken);
-        } else throw new Exception("Wrong password");
+        if(Status.ACTIVE.equals(user.getStatus())) {
+            if (user.getPassword().equals(encoder.encode(authRequest.getPassword()))) {
+                String accessToken = jwtProvider.generateAccessToken(user);
+                String refreshToken = jwtProvider.generateRefreshToken(user);
+                tokenService.save(new Token(user.getEmail(), refreshToken));
+                return new JwtResponseDTO(user.getId(), accessToken, refreshToken);
+            } else throw new Exception("Wrong password");
+        }
+        else throw new Exception("User has been deleted");
     }
 
     @Override
@@ -45,10 +49,10 @@ public class AuthServiceImpl implements AuthService {
             String savedRefreshToken = tokenService.findTokenByEmail(email);
             if (savedRefreshToken != null && savedRefreshToken.equals(refreshToken)) {
                 User user = userService.findByEmailOrLogin(email);
-                return new JwtResponseDTO(jwtProvider.generateAccessToken(user), null);
+                return new JwtResponseDTO(user.getId(), jwtProvider.generateAccessToken(user), null);
             }
         }
-        return new JwtResponseDTO(null, null);
+        return new JwtResponseDTO(null,null, null);
     }
 
     @SneakyThrows
@@ -63,7 +67,7 @@ public class AuthServiceImpl implements AuthService {
                 String accessToken = jwtProvider.generateAccessToken(user);
                 String newRefreshToken = jwtProvider.generateRefreshToken(user);
                 tokenService.save(new Token(user.getEmail(), newRefreshToken));
-                return new JwtResponseDTO(accessToken, refreshToken);
+                return new JwtResponseDTO(user.getId(), accessToken, refreshToken);
             }
         }
         throw new Exception("Invalid refresh token");
