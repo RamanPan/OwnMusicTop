@@ -1,6 +1,9 @@
 package ru.ramanpan.topmusicgroupsweb.services.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 import ru.ramanpan.topmusicgroupsweb.DTO.UserDTO;
 import ru.ramanpan.topmusicgroupsweb.model.User;
 import ru.ramanpan.topmusicgroupsweb.model.enums.Status;
@@ -9,20 +12,23 @@ import ru.ramanpan.topmusicgroupsweb.services.UserService;
 
 import java.time.LocalDate;
 
+@Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
-
+    private final BCryptPasswordEncoder encoder;
     @Override
     public void registration(User user) {
         user.setStatus(Status.ACTIVE);
         user.setDateCreated(LocalDate.now());
+        user.setPassword(encoder.encode(user.getPassword()));
         userRepo.save(user);
     }
 
+    @SneakyThrows
     @Override
     public User findByEmailOrLogin(String data) {
-        return userRepo.findByLoginOrEmail(data).orElse(null);
+        return userRepo.findByLoginOrEmail(data,data).orElseThrow(() ->new Exception("User not found"));
     }
 
     @Override

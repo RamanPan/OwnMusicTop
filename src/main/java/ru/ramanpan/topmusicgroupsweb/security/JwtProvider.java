@@ -25,7 +25,7 @@ public class JwtProvider {
     private final SecretKey jwtAccessSecret;
     private final SecretKey jwtRefreshSecret;
 
-    public JwtProvider(@Value("jwt.secret.access") String jwtAccessSecret, @Value("jwt.secret.refresh") String jwtRefreshSecret) {
+    public JwtProvider(@Value("${jwt.secret.access}") String jwtAccessSecret, @Value("${jwt.secret.refresh}") String jwtRefreshSecret) {
         this.jwtAccessSecret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtAccessSecret));
         this.jwtRefreshSecret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtRefreshSecret));
         System.out.println(jwtAccessSecret + " " + jwtRefreshSecret);
@@ -96,5 +96,12 @@ public class JwtProvider {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    public JwtAuthentication generate(Claims claims) {
+        final JwtAuthentication jwtInfoToken = new JwtAuthentication();
+        jwtInfoToken.setLogin(claims.get("login", String.class));
+        jwtInfoToken.setEmail(claims.getSubject());
+        return jwtInfoToken;
     }
 }

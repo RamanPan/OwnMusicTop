@@ -5,8 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class JwtResponseDTO {
-    private final String type = "Bearer";
-    private String accessToken;
+public class JwtRefreshRequestDTO {
     private String refreshToken;
 }
