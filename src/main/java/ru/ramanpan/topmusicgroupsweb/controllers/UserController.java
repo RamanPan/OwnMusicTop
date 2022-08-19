@@ -18,20 +18,20 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/registration")
-    public ResponseEntity<Long> registration(@RequestBody @NonNull UserDTO u) {
+    public ResponseEntity.BodyBuilder registration(@RequestBody @NonNull UserDTO u) {
         userService.registration(u);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok();
     }
     @GetMapping("/deleteUser")
-    public ResponseEntity<Long> deleteUser(@RequestBody @NonNull Long id) {
+    public ResponseEntity.BodyBuilder deleteUser(@RequestBody @NonNull Long id) {
         userService.delete(id);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok();
     }
     @RequestMapping("/logout")
-    public ResponseEntity<Long> logout(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity.BodyBuilder logout(HttpServletRequest request, HttpServletResponse response) {
         SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
         securityContextLogoutHandler.logout(request, response, null);
         System.out.println("exit");
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok();
     }
 }
