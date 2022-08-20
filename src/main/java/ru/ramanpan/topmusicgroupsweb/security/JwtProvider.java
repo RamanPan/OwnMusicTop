@@ -28,7 +28,6 @@ public class JwtProvider {
     public JwtProvider(@Value("${jwt.secret.access}") String jwtAccessSecret, @Value("${jwt.secret.refresh}") String jwtRefreshSecret) {
         this.jwtAccessSecret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtAccessSecret));
         this.jwtRefreshSecret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtRefreshSecret));
-        System.out.println(jwtAccessSecret + " " + jwtRefreshSecret);
     }
 
     public String generateAccessToken(@NonNull User user) {
@@ -76,10 +75,11 @@ public class JwtProvider {
     }
 
     public boolean validateAccessToken(String accessToken) {
-        return validateToken(accessToken,jwtAccessSecret);
+        return validateToken(accessToken, jwtAccessSecret);
     }
+
     public boolean validateRefreshToken(String refreshToken) {
-        return validateToken(refreshToken,jwtRefreshSecret);
+        return validateToken(refreshToken, jwtRefreshSecret);
     }
 
     public Claims getAccessClaims(@NonNull String token) {

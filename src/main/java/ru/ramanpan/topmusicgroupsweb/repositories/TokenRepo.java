@@ -5,6 +5,6 @@ import ru.ramanpan.topmusicgroupsweb.model.Token;
 
 import java.util.Optional;
 
-public interface TokenRepo extends JpaRepository<Token,Long> {
+public interface TokenRepo extends JpaRepository<Token, Long> {
     Optional<Token> findByEmail(String email);
 }

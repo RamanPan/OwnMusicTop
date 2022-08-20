@@ -27,8 +27,8 @@ public class Song extends BasicEntity {
 
     private Integer place;
 
-    @ManyToOne(optional = false,fetch = FetchType.LAZY)
-    @JoinColumn(name = "topId",nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "topId", nullable = false)
     @ToString.Exclude
     private Top top;
 

@@ -4,11 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -32,7 +29,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests(
                         auth -> auth
-                                .antMatchers("/api/auth/login","/api/auth/access","/api/user/registration").permitAll()
+                                .antMatchers("/api/auth/login", "/api/auth/access", "/api/user/registration").permitAll()
                                 .anyRequest().authenticated()
                                 .and()
                                 .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
@@ -43,6 +40,7 @@ public class SecurityConfig {
     public ModelMapper getMapper() {
         return new ModelMapper();
     }
+
     @Bean
     protected BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);

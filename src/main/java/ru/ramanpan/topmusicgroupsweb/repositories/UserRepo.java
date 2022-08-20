@@ -6,5 +6,5 @@ import ru.ramanpan.topmusicgroupsweb.model.User;
 import java.util.Optional;
 
 public interface UserRepo extends JpaRepository<User, Long> {
-    Optional<User> findByLoginOrEmail(String login,String email);
+    Optional<User> findByLoginOrEmail(String login, String email);
 }

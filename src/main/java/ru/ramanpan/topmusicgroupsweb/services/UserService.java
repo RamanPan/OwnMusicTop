@@ -1,6 +1,6 @@
 package ru.ramanpan.topmusicgroupsweb.services;
 
-import ru.ramanpan.topmusicgroupsweb.DTO.UserDTO;
+import ru.ramanpan.topmusicgroupsweb.dto.UserDTO;
 import ru.ramanpan.topmusicgroupsweb.model.User;
 
 public interface UserService {

@@ -11,6 +11,7 @@ import ru.ramanpan.topmusicgroupsweb.services.TokenService;
 @RequiredArgsConstructor
 public class TokenServiceImpl implements TokenService {
     private final TokenRepo tokenRepo;
+
     @Override
     public void save(Token token) {
         tokenRepo.save(token);

@@ -20,6 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return fromUser(userService.findByEmailOrLogin(username));
     }
+
     private UserDetails fromUser(User user) {
         return new org.springframework.security.core.userdetails.User(
                 user.getLogin(),

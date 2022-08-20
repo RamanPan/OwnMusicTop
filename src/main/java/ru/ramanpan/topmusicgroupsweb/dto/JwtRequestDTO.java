@@ -1,4 +1,4 @@
-package ru.ramanpan.topmusicgroupsweb.DTO;
+package ru.ramanpan.topmusicgroupsweb.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

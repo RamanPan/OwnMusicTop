@@ -7,8 +7,9 @@ import lombok.SneakyThrows;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.ramanpan.topmusicgroupsweb.DTO.JwtRequestDTO;
-import ru.ramanpan.topmusicgroupsweb.DTO.JwtResponseDTO;
+import ru.ramanpan.topmusicgroupsweb.dto.JwtRequestDTO;
+import ru.ramanpan.topmusicgroupsweb.dto.JwtResponseDTO;
+import ru.ramanpan.topmusicgroupsweb.exception.AuthException;
 import ru.ramanpan.topmusicgroupsweb.model.Token;
 import ru.ramanpan.topmusicgroupsweb.model.User;
 import ru.ramanpan.topmusicgroupsweb.model.enums.Status;
@@ -30,15 +31,14 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public JwtResponseDTO login(@NonNull JwtRequestDTO authRequest) {
         User user = userService.findByEmailOrLogin(authRequest.getEmail());
-        if(Status.ACTIVE.equals(user.getStatus())) {
+        if (Status.ACTIVE.equals(user.getStatus())) {
             if (user.getPassword().equals(encoder.encode(authRequest.getPassword()))) {
                 String accessToken = jwtProvider.generateAccessToken(user);
                 String refreshToken = jwtProvider.generateRefreshToken(user);
                 tokenService.save(new Token(user.getEmail(), refreshToken));
                 return new JwtResponseDTO(user.getId(), accessToken, refreshToken);
-            } else throw new Exception("Wrong password");
-        }
-        else throw new Exception("User has been deleted");
+            } else throw new AuthException("Wrong password");
+        } else throw new AuthException("User has been deleted");
     }
 
     @Override
@@ -52,7 +52,7 @@ public class AuthServiceImpl implements AuthService {
                 return new JwtResponseDTO(user.getId(), jwtProvider.generateAccessToken(user), null);
             }
         }
-        return new JwtResponseDTO(null,null, null);
+        return new JwtResponseDTO(null, null, null);
     }
 
     @SneakyThrows
@@ -70,7 +70,7 @@ public class AuthServiceImpl implements AuthService {
                 return new JwtResponseDTO(user.getId(), accessToken, refreshToken);
             }
         }
-        throw new Exception("Invalid refresh token");
+        throw new AuthException("Invalid refresh token");
     }
 
     @Override

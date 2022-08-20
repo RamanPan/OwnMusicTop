@@ -28,15 +28,15 @@ public class Top extends BasicEntity {
 
     private String avatar;
 
-    @OneToMany(mappedBy = "top",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "top", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Musician> musicians = new ArrayList<>();
 
-    @OneToMany(mappedBy = "top",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "top", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Album> albums = new ArrayList<>();
 
-    @OneToMany(mappedBy = "top",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "top", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Song> songs = new ArrayList<>();
 

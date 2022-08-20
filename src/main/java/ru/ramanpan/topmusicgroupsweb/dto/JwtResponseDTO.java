@@ -1,4 +1,4 @@
-package ru.ramanpan.topmusicgroupsweb.DTO;
+package ru.ramanpan.topmusicgroupsweb.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class JwtResponseDTO {
-    private final String type = "Bearer";
-    private Long ID;
+    private static final String TYPE = "Bearer";
+    private Long id;
     private String accessToken;
     private String refreshToken;
 }

@@ -4,12 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.ramanpan.topmusicgroupsweb.DTO.UserDTO;
+import ru.ramanpan.topmusicgroupsweb.dto.UserDTO;
 import ru.ramanpan.topmusicgroupsweb.exception.NotFoundException;
 import ru.ramanpan.topmusicgroupsweb.model.User;
 import ru.ramanpan.topmusicgroupsweb.model.enums.Status;
 import ru.ramanpan.topmusicgroupsweb.repositories.UserRepo;
 import ru.ramanpan.topmusicgroupsweb.services.UserService;
+import ru.ramanpan.topmusicgroupsweb.utils.Constants;
 
 import java.time.LocalDate;
 
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
     private final BCryptPasswordEncoder encoder;
+
     @Override
     public void registration(UserDTO u) {
         User user = new User();
@@ -38,12 +40,12 @@ public class UserServiceImpl implements UserService {
     @SneakyThrows
     @Override
     public User findByEmailOrLogin(String data) {
-        return userRepo.findByLoginOrEmail(data,data).orElseThrow(() -> new NotFoundException("User not found"));
+        return userRepo.findByLoginOrEmail(data, data).orElseThrow(() -> new NotFoundException(Constants.USER_NOT_FOUND));
     }
 
     @Override
     public void updateLogin(UserDTO u) {
-        User user = userRepo.findById(u.getId()).orElseThrow(() -> new NotFoundException("User not found"));
+        User user = userRepo.findById(u.getId()).orElseThrow(() -> new NotFoundException(Constants.USER_NOT_FOUND));
         user.setLogin(u.getLogin());
         userRepo.save(user);
 
@@ -51,6 +53,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
-        userRepo.findById(id).orElseThrow(() -> new NotFoundException("User not found")).setStatus(Status.DELETED);
+        userRepo.findById(id).orElseThrow(() -> new NotFoundException(Constants.USER_NOT_FOUND)).setStatus(Status.DELETED);
     }
 }

@@ -15,7 +15,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Entity
 @Table()
-public class Album extends BasicEntity{
+public class Album extends BasicEntity {
     @Column(nullable = false)
     private String name;
 
@@ -26,8 +26,8 @@ public class Album extends BasicEntity{
 
     private Integer place;
 
-    @ManyToOne(optional = false,fetch = FetchType.LAZY)
-    @JoinColumn(name = "topId",nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "topId", nullable = false)
     @ToString.Exclude
     private Top top;
 
