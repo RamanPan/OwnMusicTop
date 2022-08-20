@@ -5,23 +5,18 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 
-
 @Data
 @RequiredArgsConstructor
-public class MusicianDTO {
+public class SongDTO {
     private Long id;
 
     private LocalDate dateCreated;
 
     private String name;
 
-    private String genre;
+    private String author;
 
-    private String avatar;
-
-    private String bestSong;
-
-    private String description;
+    private String album;
 
     private Integer place;
 
