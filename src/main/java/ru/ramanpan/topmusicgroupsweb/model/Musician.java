@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import ru.ramanpan.topmusicgroupsweb.model.enums.Type;
 
 import javax.persistence.*;
 import java.util.Objects;

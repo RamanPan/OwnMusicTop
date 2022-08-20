@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import ru.ramanpan.topmusicgroupsweb.model.enums.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,8 +24,12 @@ public class Top extends BasicEntity {
 
     @Column(length = 1000)
     private String description;
-
+    @Column(nullable = false)
     private String author;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private Type type;
 
     private String avatar;
 
