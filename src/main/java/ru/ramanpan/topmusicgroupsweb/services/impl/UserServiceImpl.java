@@ -13,6 +13,7 @@ import ru.ramanpan.topmusicgroupsweb.services.UserService;
 import ru.ramanpan.topmusicgroupsweb.utils.Constants;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +38,6 @@ public class UserServiceImpl implements UserService {
         userRepo.save(user);
     }
 
-    @SneakyThrows
     @Override
     public User findByEmailOrLogin(String data) {
         return userRepo.findByLoginOrEmail(data, data).orElseThrow(() -> new NotFoundException(Constants.USER_NOT_FOUND));
@@ -55,6 +55,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAll() {
+        return userRepo.findAll();
+    }
+
+    @Override
     public User findById(Long id) {
         return userRepo.findById(id).orElseThrow(() -> new NotFoundException(Constants.USER_NOT_FOUND) );
     }
@@ -69,5 +74,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         userRepo.findById(id).orElseThrow(() -> new NotFoundException(Constants.USER_NOT_FOUND)).setStatus(Status.DELETED);
+    }
+
+    @Override
+    public void incrementCountCreatedTops(User user) {
+        user.setCountCreatedTops(user.getCountCreatedTops() + 1);
+    }
+
+    @Override
+    public void incrementCountAddedAlbums(User user) {
+        user.setCountAddedAlbums(user.getCountAddedAlbums() + 1);
+    }
+
+    @Override
+    public void incrementCountAddedMusicians(User user) {
+        user.setCountAddedGroups(user.getCountAddedGroups() + 1);
+    }
+
+    @Override
+    public void incrementCountAddedSongs(User user) {
+        user.setCountAddedSongs(user.getCountAddedSongs() + 1);
     }
 }

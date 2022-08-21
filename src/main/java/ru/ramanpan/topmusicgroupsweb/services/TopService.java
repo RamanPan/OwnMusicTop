@@ -15,6 +15,8 @@ public interface TopService {
 
     List<Top> findTopsByAuthor(String author);
 
+    List<Top> findTopsByUser(Long userId);
+
     List<Top> findAll();
 
     void addLike(Long testId);

@@ -28,5 +28,7 @@ public class TopDTO {
     private Integer dislikes;
 
     private Integer countLooks;
+
+    private Long userId;
 }
 
