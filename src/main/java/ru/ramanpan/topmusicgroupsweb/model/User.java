@@ -8,6 +8,7 @@ import org.hibernate.Hibernate;
 import ru.ramanpan.topmusicgroupsweb.model.enums.Status;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -41,6 +42,10 @@ public class User extends BasicEntity {
     private Integer countAddedSongs;
 
     private Integer countAddedAlbums;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Top> createdTops;
 
     @Override
     public boolean equals(Object o) {

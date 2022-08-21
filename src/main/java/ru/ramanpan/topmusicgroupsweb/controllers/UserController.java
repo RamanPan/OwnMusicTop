@@ -23,9 +23,19 @@ public class UserController {
         return ResponseEntity.ok();
     }
 
-    @GetMapping("/deleteUser")
+    @PostMapping("/deleteUser")
     public ResponseEntity.BodyBuilder deleteUser(@RequestBody @NonNull Long id) {
         userService.delete(id);
+        return ResponseEntity.ok();
+    }
+    @PostMapping("/update")
+    public ResponseEntity.BodyBuilder updateUser(@RequestBody UserDTO u) {
+        userService.update(u);
+        return ResponseEntity.ok();
+    }
+    @PostMapping("/updatePassword")
+    public ResponseEntity.BodyBuilder updatePassword(@RequestBody UserDTO u) {
+        userService.updatePassword(u);
         return ResponseEntity.ok();
     }
 

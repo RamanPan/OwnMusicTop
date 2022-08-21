@@ -1,12 +1,10 @@
 package ru.ramanpan.topmusicgroupsweb.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table
@@ -20,10 +18,10 @@ public class Token {
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)
-    private String token;
+    private String refreshToken;
 
     public Token(String email, String refreshToken) {
         this.email = email;
-        this.token = refreshToken;
+        this.refreshToken = refreshToken;
     }
 }

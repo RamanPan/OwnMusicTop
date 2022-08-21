@@ -19,6 +19,6 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public String findTokenByEmail(String email) {
-        return tokenRepo.findByEmail(email).orElseThrow(() -> new NotFoundException("token not found")).getToken();
+        return tokenRepo.findByEmail(email).orElseThrow(() -> new NotFoundException("token not found")).getRefreshToken();
     }
 }

@@ -27,6 +27,9 @@ public class TopServiceImpl implements TopService {
         top.setAvatar(top.getAvatar());
         top.setDescription(top.getDescription());
         top.setHeader(top.getHeader());
+        top.setLikes(0);
+        top.setDislikes(0);
+        top.setCountLooks(0);
         if("Группы".equals(type)) top.setType(Type.MUSICIANS);
         else if ("Альбомы".equals(type)) top.setType(Type.ALBUMS);
         else top.setType(Type.SONGS);
@@ -51,6 +54,36 @@ public class TopServiceImpl implements TopService {
         else if ("Альбомы".equals(type)) top.setType(Type.ALBUMS);
         else top.setType(Type.SONGS);
         topRepo.save(top);
+    }
+
+    @Override
+    public void addLike(Long testId) {
+        Top top = findTopById(testId);
+        top.setLikes(top.getLikes() + 1);
+    }
+
+    @Override
+    public void removeLike(Long testId) {
+        Top top = findTopById(testId);
+        top.setLikes(top.getLikes() - 1);
+    }
+
+    @Override
+    public void addDislike(Long testId) {
+        Top top = findTopById(testId);
+        top.setDislikes(top.getDislikes() + 1);
+    }
+
+    @Override
+    public void removeDislike(Long testId) {
+        Top top = findTopById(testId);
+        top.setDislikes(top.getDislikes() - 1);
+    }
+
+    @Override
+    public void addLook(Long testId) {
+        Top top = findTopById(testId);
+        top.setCountLooks(top.getCountLooks() + 1);
     }
 
     @Override

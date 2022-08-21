@@ -33,6 +33,12 @@ public class Top extends BasicEntity {
 
     private String avatar;
 
+    private Integer likes;
+
+    private Integer dislikes;
+
+    private Integer countLooks;
+
     @OneToMany(mappedBy = "top", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Musician> musicians = new ArrayList<>();
@@ -44,6 +50,11 @@ public class Top extends BasicEntity {
     @OneToMany(mappedBy = "top", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Song> songs = new ArrayList<>();
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false)
+    @ToString.Exclude
+    private User user;
 
     @Override
     public boolean equals(Object o) {

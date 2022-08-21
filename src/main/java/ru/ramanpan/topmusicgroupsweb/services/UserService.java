@@ -8,7 +8,11 @@ public interface UserService {
 
     User findByEmailOrLogin(String data);
 
-    void updateLogin(UserDTO u);
+    void update(UserDTO u);
+
+    void updatePassword(UserDTO u);
+
+    User findById(Long id);
 
     void delete(Long id);
 }

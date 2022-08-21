@@ -44,11 +44,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateLogin(UserDTO u) {
-        User user = userRepo.findById(u.getId()).orElseThrow(() -> new NotFoundException(Constants.USER_NOT_FOUND));
+    public void update(UserDTO u) {
+        User user = findById(u.getId());
         user.setLogin(u.getLogin());
+        user.setAvatar(u.getAvatar());
+        user.setDescription(u.getDescription());
+        user.setDateUpdate(LocalDate.now());
+        user.setEmail(u.getEmail());
         userRepo.save(user);
+    }
 
+    @Override
+    public User findById(Long id) {
+        return userRepo.findById(id).orElseThrow(() -> new NotFoundException(Constants.USER_NOT_FOUND) );
+    }
+
+    @Override
+    public void updatePassword(UserDTO u) {
+        User user = findById(u.getId());
+        user.setPassword(encoder.encode(u.getPassword()));
+        userRepo.save(user);
     }
 
     @Override

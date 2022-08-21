@@ -22,5 +22,11 @@ public class TopDTO {
     private String author;
 
     private String avatar;
+
+    private Integer likes;
+
+    private Integer dislikes;
+
+    private Integer countLooks;
 }
 
