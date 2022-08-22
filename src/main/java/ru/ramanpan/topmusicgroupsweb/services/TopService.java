@@ -19,15 +19,15 @@ public interface TopService {
 
     List<Top> findAll();
 
-    void addLike(Long testId);
+    void addLike(Long idTop);
 
-    void removeLike(Long testId);
+    void removeLike(Long idTop);
 
-    void addDislike(Long testId);
+    void addDislike(Long idTop);
 
-    void removeDislike(Long testId);
+    void removeDislike(Long idTop);
 
-    void addLook(Long testId);
+    void addLook(Top top);
 
     void delete(Long id);
 

@@ -50,7 +50,8 @@ public class AlbumServiceImpl implements AlbumService {
         album.setName(albumDTO.getName());
         album.setPlace(albumDTO.getPlace());
         album.setDateUpdate(LocalDate.now());
-        if (topId != null && !topId.equals(album.getTop().getId())) album.setTop(topService.findTopById(albumDTO.getIdTop()));
+        if (topId != null && !topId.equals(album.getTop().getId()))
+            album.setTop(topService.findTopById(albumDTO.getIdTop()));
         albumRepo.save(album);
     }
 
@@ -60,8 +61,10 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public List<Album> findAllAlbumsByTop(Long idTop) {
-        return albumRepo.findAllByTop(topService.findTopById(idTop));
+    public List<Album> findAllAlbumsByTop(Long topId) {
+        Top top = topService.findTopById(topId);
+        topService.addLook(top);
+        return albumRepo.findAllByTop(top);
     }
 
     @Override

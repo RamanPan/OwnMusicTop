@@ -6,7 +6,6 @@ import ru.ramanpan.topmusicgroupsweb.dto.SongDTO;
 import ru.ramanpan.topmusicgroupsweb.exception.NotFoundException;
 import ru.ramanpan.topmusicgroupsweb.model.Song;
 import ru.ramanpan.topmusicgroupsweb.model.Top;
-import ru.ramanpan.topmusicgroupsweb.model.User;
 import ru.ramanpan.topmusicgroupsweb.repositories.SongRepo;
 import ru.ramanpan.topmusicgroupsweb.services.SongService;
 import ru.ramanpan.topmusicgroupsweb.services.TopService;
@@ -52,7 +51,8 @@ public class SongServiceImpl implements SongService {
         song.setAuthor(songDTO.getAuthor());
         song.setDateCreated(LocalDate.now());
         song.setPlace(songDTO.getPlace());
-        if (topId != null && !topId.equals(song.getTop().getId())) song.setTop(topService.findTopById(songDTO.getIdTop()));
+        if (topId != null && !topId.equals(song.getTop().getId()))
+            song.setTop(topService.findTopById(songDTO.getIdTop()));
         songRepo.save(song);
     }
 
@@ -83,6 +83,8 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public List<Song> findAllByTop(Long idTop) {
-        return songRepo.findAllByTop(topService.findTopById(idTop));
+        Top top = topService.findTopById(idTop);
+        topService.addLook(top);
+        return songRepo.findAllByTop(top);
     }
 }

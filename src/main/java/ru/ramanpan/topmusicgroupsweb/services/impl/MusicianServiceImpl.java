@@ -6,7 +6,6 @@ import ru.ramanpan.topmusicgroupsweb.dto.MusicianDTO;
 import ru.ramanpan.topmusicgroupsweb.exception.NotFoundException;
 import ru.ramanpan.topmusicgroupsweb.model.Musician;
 import ru.ramanpan.topmusicgroupsweb.model.Top;
-import ru.ramanpan.topmusicgroupsweb.model.User;
 import ru.ramanpan.topmusicgroupsweb.repositories.MusicianRepo;
 import ru.ramanpan.topmusicgroupsweb.services.MusicianService;
 import ru.ramanpan.topmusicgroupsweb.services.TopService;
@@ -30,7 +29,9 @@ public class MusicianServiceImpl implements MusicianService {
 
     @Override
     public List<Musician> findAllMusicianByTop(Long topId) {
-        return musicianRepo.findAllByTop(topService.findTopById(topId));
+        Top top = topService.findTopById(topId);
+        topService.addLook(top);
+        return musicianRepo.findAllByTop(top);
     }
 
     @Override

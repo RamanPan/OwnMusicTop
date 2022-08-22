@@ -1,7 +1,6 @@
 package ru.ramanpan.topmusicgroupsweb.services.impl;
 
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.ramanpan.topmusicgroupsweb.dto.UserDTO;
@@ -61,7 +60,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Long id) {
-        return userRepo.findById(id).orElseThrow(() -> new NotFoundException(Constants.USER_NOT_FOUND) );
+        return userRepo.findById(id).orElseThrow(() -> new NotFoundException(Constants.USER_NOT_FOUND));
     }
 
     @Override

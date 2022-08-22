@@ -30,16 +30,19 @@ public class UserController {
         userService.delete(id);
         return ResponseEntity.ok();
     }
+
     @PostMapping("/update")
     public ResponseEntity.BodyBuilder updateUser(@RequestBody UserDTO u) {
         userService.update(u);
         return ResponseEntity.ok();
     }
+
     @PostMapping("/updatePassword")
     public ResponseEntity.BodyBuilder updatePassword(@RequestBody UserDTO u) {
         userService.updatePassword(u);
         return ResponseEntity.ok();
     }
+
     @GetMapping("/getAll")
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(userService.findAll());

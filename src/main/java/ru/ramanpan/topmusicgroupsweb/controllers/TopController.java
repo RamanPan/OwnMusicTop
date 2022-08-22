@@ -2,7 +2,6 @@ package ru.ramanpan.topmusicgroupsweb.controllers;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.ramanpan.topmusicgroupsweb.dto.TopDTO;

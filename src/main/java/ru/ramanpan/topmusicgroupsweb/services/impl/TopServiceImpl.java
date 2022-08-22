@@ -35,7 +35,7 @@ public class TopServiceImpl implements TopService {
         top.setDislikes(0);
         top.setCountLooks(0);
         top.setUser(user);
-        if("Группы".equals(type)) top.setType(Type.MUSICIANS);
+        if ("Группы".equals(type)) top.setType(Type.MUSICIANS);
         else if ("Альбомы".equals(type)) top.setType(Type.ALBUMS);
         else top.setType(Type.SONGS);
         topRepo.save(top);
@@ -56,7 +56,7 @@ public class TopServiceImpl implements TopService {
         top.setAuthor(top.getAuthor());
         top.setHeader(top.getHeader());
         top.setDescription(top.getDescription());
-        if("Группы".equals(type)) top.setType(Type.MUSICIANS);
+        if ("Группы".equals(type)) top.setType(Type.MUSICIANS);
         else if ("Альбомы".equals(type)) top.setType(Type.ALBUMS);
         else top.setType(Type.SONGS);
         topRepo.save(top);
@@ -91,8 +91,7 @@ public class TopServiceImpl implements TopService {
     }
 
     @Override
-    public void addLook(Long testId) {
-        Top top = findTopById(testId);
+    public void addLook(Top top) {
         top.setCountLooks(top.getCountLooks() + 1);
         defaultSave(top);
     }
