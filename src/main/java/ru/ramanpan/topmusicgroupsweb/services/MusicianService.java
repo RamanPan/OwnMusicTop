@@ -2,14 +2,13 @@ package ru.ramanpan.topmusicgroupsweb.services;
 
 import ru.ramanpan.topmusicgroupsweb.dto.MusicianDTO;
 import ru.ramanpan.topmusicgroupsweb.model.Musician;
-import ru.ramanpan.topmusicgroupsweb.model.Top;
 
 import java.util.List;
 
 public interface MusicianService {
     List<Musician> findAllMusician();
 
-    List<Musician> findAllMusicianByTop(Top top);
+    List<Musician> findAllMusicianByTop(Long topId);
 
     Musician findById(Long id);
 

@@ -66,30 +66,35 @@ public class TopServiceImpl implements TopService {
     public void addLike(Long testId) {
         Top top = findTopById(testId);
         top.setLikes(top.getLikes() + 1);
+        defaultSave(top);
     }
 
     @Override
     public void removeLike(Long testId) {
         Top top = findTopById(testId);
         top.setLikes(top.getLikes() - 1);
+        defaultSave(top);
     }
 
     @Override
     public void addDislike(Long testId) {
         Top top = findTopById(testId);
         top.setDislikes(top.getDislikes() + 1);
+        defaultSave(top);
     }
 
     @Override
     public void removeDislike(Long testId) {
         Top top = findTopById(testId);
         top.setDislikes(top.getDislikes() - 1);
+        defaultSave(top);
     }
 
     @Override
     public void addLook(Long testId) {
         Top top = findTopById(testId);
         top.setCountLooks(top.getCountLooks() + 1);
+        defaultSave(top);
     }
 
     @Override

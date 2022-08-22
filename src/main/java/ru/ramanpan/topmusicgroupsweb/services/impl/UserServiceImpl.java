@@ -79,20 +79,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public void incrementCountCreatedTops(User user) {
         user.setCountCreatedTops(user.getCountCreatedTops() + 1);
+        userRepo.save(user);
     }
 
     @Override
     public void incrementCountAddedAlbums(User user) {
         user.setCountAddedAlbums(user.getCountAddedAlbums() + 1);
+        userRepo.save(user);
     }
 
     @Override
     public void incrementCountAddedMusicians(User user) {
         user.setCountAddedGroups(user.getCountAddedGroups() + 1);
+        userRepo.save(user);
     }
 
     @Override
     public void incrementCountAddedSongs(User user) {
         user.setCountAddedSongs(user.getCountAddedSongs() + 1);
+        userRepo.save(user);
     }
 }

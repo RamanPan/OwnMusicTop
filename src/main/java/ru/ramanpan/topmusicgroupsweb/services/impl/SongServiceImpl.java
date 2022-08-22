@@ -5,9 +5,12 @@ import org.springframework.stereotype.Service;
 import ru.ramanpan.topmusicgroupsweb.dto.SongDTO;
 import ru.ramanpan.topmusicgroupsweb.exception.NotFoundException;
 import ru.ramanpan.topmusicgroupsweb.model.Song;
+import ru.ramanpan.topmusicgroupsweb.model.Top;
+import ru.ramanpan.topmusicgroupsweb.model.User;
 import ru.ramanpan.topmusicgroupsweb.repositories.SongRepo;
 import ru.ramanpan.topmusicgroupsweb.services.SongService;
 import ru.ramanpan.topmusicgroupsweb.services.TopService;
+import ru.ramanpan.topmusicgroupsweb.services.UserService;
 import ru.ramanpan.topmusicgroupsweb.utils.Constants;
 
 import java.time.LocalDate;
@@ -16,19 +19,23 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class SongServiceImpl implements SongService {
-    private SongRepo songRepo;
-    private TopService topService;
+    private final SongRepo songRepo;
+    private final TopService topService;
+    private final UserService userService;
 
     @Override
     public void save(SongDTO songDTO) {
         Song song = new Song();
+        Top top = topService.findTopById(songDTO.getIdTop());
+        userService.incrementCountCreatedTops(top.getUser());
         song.setName(songDTO.getName());
         song.setAlbum(songDTO.getAlbum());
         song.setAuthor(songDTO.getAuthor());
         song.setDateCreated(LocalDate.now());
         song.setPlace(songDTO.getPlace());
-        song.setTop(topService.findTopById(songDTO.getIdTop()));
+        song.setTop(top);
         songRepo.save(song);
+
     }
 
     @Override

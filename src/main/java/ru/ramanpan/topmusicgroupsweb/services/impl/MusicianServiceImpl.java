@@ -6,9 +6,11 @@ import ru.ramanpan.topmusicgroupsweb.dto.MusicianDTO;
 import ru.ramanpan.topmusicgroupsweb.exception.NotFoundException;
 import ru.ramanpan.topmusicgroupsweb.model.Musician;
 import ru.ramanpan.topmusicgroupsweb.model.Top;
+import ru.ramanpan.topmusicgroupsweb.model.User;
 import ru.ramanpan.topmusicgroupsweb.repositories.MusicianRepo;
 import ru.ramanpan.topmusicgroupsweb.services.MusicianService;
 import ru.ramanpan.topmusicgroupsweb.services.TopService;
+import ru.ramanpan.topmusicgroupsweb.services.UserService;
 import ru.ramanpan.topmusicgroupsweb.utils.Constants;
 
 import java.time.LocalDate;
@@ -19,6 +21,7 @@ import java.util.List;
 public class MusicianServiceImpl implements MusicianService {
     private final MusicianRepo musicianRepo;
     private final TopService topService;
+    private final UserService userService;
 
     @Override
     public List<Musician> findAllMusician() {
@@ -26,8 +29,8 @@ public class MusicianServiceImpl implements MusicianService {
     }
 
     @Override
-    public List<Musician> findAllMusicianByTop(Top top) {
-        return musicianRepo.findAllByTop(top);
+    public List<Musician> findAllMusicianByTop(Long topId) {
+        return musicianRepo.findAllByTop(topService.findTopById(topId));
     }
 
     @Override
@@ -38,6 +41,8 @@ public class MusicianServiceImpl implements MusicianService {
     @Override
     public void save(MusicianDTO musicianDTO) {
         Musician musician = new Musician();
+        Top top = topService.findTopById(musicianDTO.getIdTop());
+        userService.incrementCountAddedMusicians(top.getUser());
         musician.setName(musicianDTO.getName());
         musician.setAvatar(musicianDTO.getAvatar());
         musician.setBestSong(musician.getBestSong());
@@ -45,7 +50,7 @@ public class MusicianServiceImpl implements MusicianService {
         musician.setGenre(musicianDTO.getGenre());
         musician.setPlace(musicianDTO.getPlace());
         musician.setDateCreated(LocalDate.now());
-        musician.setTop(topService.findTopById(musicianDTO.getIdTop()));
+        musician.setTop(top);
         musicianRepo.save(musician);
     }
 

@@ -12,6 +12,7 @@ public interface UserService {
 
     void update(UserDTO u);
 
+
     void updatePassword(UserDTO u);
 
     User findById(Long id);
