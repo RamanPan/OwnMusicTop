@@ -25,8 +25,8 @@ public class UserController {
         return ResponseEntity.ok();
     }
 
-    @PostMapping("/deleteUser")
-    public ResponseEntity.BodyBuilder deleteUser(@RequestBody @NonNull Long id) {
+    @DeleteMapping("/deleteUser/{id}")
+    public ResponseEntity.BodyBuilder deleteUser(@PathVariable("id") Long id) {
         userService.delete(id);
         return ResponseEntity.ok();
     }

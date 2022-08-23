@@ -33,23 +33,23 @@ public class SongController {
         return ResponseEntity.ok(songService.findAll());
     }
 
-    @GetMapping("/getByTop")
-    public ResponseEntity<List<Song>> getSongsByTop(@RequestBody @NonNull Long idTop) {
+    @GetMapping("/getByTop/{id}")
+    public ResponseEntity<List<Song>> getSongsByTop(@PathVariable("id") Long idTop) {
         return ResponseEntity.ok(songService.findAllByTop(idTop));
     }
 
-    @GetMapping("/getByMusician")
-    public ResponseEntity<List<Song>> getSongsByGroup(@RequestBody @NonNull String group) {
+    @GetMapping("/getByMusician/{group}")
+    public ResponseEntity<List<Song>> getSongsByGroup(@PathVariable("group") String group) {
         return ResponseEntity.ok(songService.findSongsByGroup(group));
     }
 
     @GetMapping("/getByAlbum")
-    public ResponseEntity<List<Song>> getSongsByAlbum(@RequestBody @NonNull String album) {
+    public ResponseEntity<List<Song>> getSongsByAlbum(@RequestBody String album) {
         return ResponseEntity.ok(songService.findSongsByAlbum(album));
     }
 
-    @GetMapping("/delete")
-    public ResponseEntity.BodyBuilder deleteSong(@RequestBody @NonNull Long id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity.BodyBuilder deleteSong(@PathVariable("id") Long id) {
         songService.delete(id);
         return ResponseEntity.ok();
     }

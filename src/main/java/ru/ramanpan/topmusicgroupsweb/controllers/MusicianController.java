@@ -33,13 +33,13 @@ public class MusicianController {
         return ResponseEntity.ok(musicianService.findAllMusician());
     }
 
-    @GetMapping("/getByTop")
-    public ResponseEntity<List<Musician>> getMusiciansByTop(@RequestBody @NonNull Long topId) {
+    @GetMapping("/getByTop/{id}")
+    public ResponseEntity<List<Musician>> getMusiciansByTop(@PathVariable("id") Long topId) {
         return ResponseEntity.ok(musicianService.findAllMusicianByTop(topId));
     }
 
-    @GetMapping("/delete")
-    public ResponseEntity.BodyBuilder deleteMusician(@RequestBody @NonNull Long id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity.BodyBuilder deleteMusician(@PathVariable("id") Long id) {
         musicianService.delete(id);
         return ResponseEntity.ok();
     }

@@ -28,8 +28,8 @@ public class AlbumController {
         return ResponseEntity.ok();
     }
 
-    @GetMapping("/delete")
-    public ResponseEntity.BodyBuilder deleteAlbum(@RequestBody @NonNull Long id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity.BodyBuilder deleteAlbum(@PathVariable("id") Long id) {
         albumService.delete(id);
         return ResponseEntity.ok();
     }
@@ -39,13 +39,13 @@ public class AlbumController {
         return ResponseEntity.ok(albumService.findAll());
     }
 
-    @GetMapping("/getByTop")
-    public ResponseEntity<List<Album>> getAlbumsByTop(@RequestBody @NonNull Long idTop) {
+    @GetMapping("/getByTop/{id}")
+    public ResponseEntity<List<Album>> getAlbumsByTop(@PathVariable("id") Long idTop) {
         return ResponseEntity.ok(albumService.findAllAlbumsByTop(idTop));
     }
 
-    @GetMapping("/getByMusician")
-    public ResponseEntity<List<Album>> getAlbumsByGroup(@RequestBody @NonNull String group) {
+    @GetMapping("/getByMusician/{group}")
+    public ResponseEntity<List<Album>> getAlbumsByGroup(@PathVariable("group") String group) {
         return ResponseEntity.ok(albumService.findAlbumsByGroup(group));
     }
 

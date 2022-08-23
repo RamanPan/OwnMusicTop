@@ -33,37 +33,37 @@ public class TopController {
         return ResponseEntity.ok(topService.findAll());
     }
 
-    @GetMapping("/getAllByUser")
-    public ResponseEntity<List<Top>> getAllTopsByUser(@RequestBody @NonNull Long id) {
+    @GetMapping("/getAllByUser/{id}")
+    public ResponseEntity<List<Top>> getAllTopsByUser(@PathVariable("id") Long id) {
         return ResponseEntity.ok(topService.findTopsByUser(id));
     }
 
-    @GetMapping("/delete")
-    public ResponseEntity.BodyBuilder deleteTop(@RequestBody @NonNull Long id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity.BodyBuilder deleteTop(@PathVariable("id") Long id) {
         topService.delete(id);
         return ResponseEntity.ok();
     }
 
-    @GetMapping("/addLike")
-    public ResponseEntity.BodyBuilder addLike(@RequestBody @NonNull Long idTop) {
+    @GetMapping("/addLike/{id}")
+    public ResponseEntity.BodyBuilder addLike(@PathVariable("id") Long idTop) {
         topService.addLike(idTop);
         return ResponseEntity.ok();
     }
 
-    @GetMapping("/removeLike")
-    public ResponseEntity.BodyBuilder removeLike(@RequestBody @NonNull Long idTop) {
+    @GetMapping("/removeLike/{id}")
+    public ResponseEntity.BodyBuilder removeLike(@PathVariable("id") Long idTop) {
         topService.removeLike(idTop);
         return ResponseEntity.ok();
     }
 
-    @GetMapping("/addDislike")
-    public ResponseEntity.BodyBuilder addDislike(@RequestBody @NonNull Long idTop) {
+    @GetMapping("/addDislike/{id}")
+    public ResponseEntity.BodyBuilder addDislike(@PathVariable("id") Long idTop) {
         topService.addDislike(idTop);
         return ResponseEntity.ok();
     }
 
-    @GetMapping("/removeDislike")
-    public ResponseEntity.BodyBuilder removeDislike(@RequestBody @NonNull Long idTop) {
+    @GetMapping("/removeDislike/{id}")
+    public ResponseEntity.BodyBuilder removeDislike(@PathVariable("id") Long idTop) {
         topService.removeDislike(idTop);
         return ResponseEntity.ok();
     }
