@@ -1,6 +1,8 @@
 package ru.ramanpan.topmusicgroupsweb.services.impl;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.ramanpan.topmusicgroupsweb.dto.TopDTO;
 import ru.ramanpan.topmusicgroupsweb.exception.NotFoundException;
@@ -94,6 +96,11 @@ public class TopServiceImpl implements TopService {
     public void addLook(Top top) {
         top.setCountLooks(top.getCountLooks() + 1);
         defaultSave(top);
+    }
+
+    @Override
+    public Page<Top> findAllWithPagination(Pageable pageable) {
+        return topRepo.findAllPage(pageable);
     }
 
     @Override

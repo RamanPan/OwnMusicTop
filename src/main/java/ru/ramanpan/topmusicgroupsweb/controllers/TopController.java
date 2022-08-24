@@ -2,6 +2,10 @@ package ru.ramanpan.topmusicgroupsweb.controllers;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.ramanpan.topmusicgroupsweb.dto.TopDTO;
@@ -31,6 +35,11 @@ public class TopController {
     @GetMapping("/getAll")
     public ResponseEntity<List<Top>> getAllTops() {
         return ResponseEntity.ok(topService.findAll());
+    }
+
+    @GetMapping("/getAllWithPage")
+    public ResponseEntity<Page<Top>> getAllTopsWithPagination(@PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
+        return ResponseEntity.ok(topService.findAllWithPagination(pageable));
     }
 
     @GetMapping("/getAllByUser/{id}")

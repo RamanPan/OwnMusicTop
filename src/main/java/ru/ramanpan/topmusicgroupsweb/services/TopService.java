@@ -1,5 +1,7 @@
 package ru.ramanpan.topmusicgroupsweb.services;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.ramanpan.topmusicgroupsweb.dto.TopDTO;
 import ru.ramanpan.topmusicgroupsweb.model.Top;
 
@@ -18,6 +20,8 @@ public interface TopService {
     List<Top> findTopsByUser(Long userId);
 
     List<Top> findAll();
+
+    Page<Top> findAllWithPagination(Pageable pageable);
 
     void addLike(Long idTop);
 
