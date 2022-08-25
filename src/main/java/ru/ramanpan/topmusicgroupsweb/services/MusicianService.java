@@ -12,6 +12,10 @@ public interface MusicianService {
 
     Musician findById(Long id);
 
+    List<MusicianDTO> mappedToListDTO(List<Musician> musicians);
+
+    MusicianDTO mappedToDTO(Musician musician);
+
     void save(MusicianDTO musicianDTO);
 
     void defaultSave(Musician musician);

@@ -12,6 +12,10 @@ public interface SongService {
 
     void update(SongDTO songDTO);
 
+    List<SongDTO> mappedToListDTO(List<Song> songs);
+
+    SongDTO mappedToDTO(Song song);
+
     List<Song> findSongsByAlbum(String album);
 
     List<Song> findSongsByGroup(String group);

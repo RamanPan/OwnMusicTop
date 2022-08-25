@@ -29,13 +29,13 @@ public class MusicianController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Musician>> getAllMusicians() {
-        return ResponseEntity.ok(musicianService.findAllMusician());
+    public ResponseEntity<List<MusicianDTO>> getAllMusicians() {
+        return ResponseEntity.ok(musicianService.mappedToListDTO(musicianService.findAllMusician()));
     }
 
     @GetMapping("/getByTop/{id}")
-    public ResponseEntity<List<Musician>> getMusiciansByTop(@PathVariable("id") Long topId) {
-        return ResponseEntity.ok(musicianService.findAllMusicianByTop(topId));
+    public ResponseEntity<List<MusicianDTO>> getMusiciansByTop(@PathVariable("id") Long topId) {
+        return ResponseEntity.ok(musicianService.mappedToListDTO(musicianService.findAllMusicianByTop(topId)));
     }
 
     @DeleteMapping("/delete/{id}")

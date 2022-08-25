@@ -1,6 +1,7 @@
 package ru.ramanpan.topmusicgroupsweb.services.impl;
 
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import ru.ramanpan.topmusicgroupsweb.dto.MusicianDTO;
 import ru.ramanpan.topmusicgroupsweb.exception.NotFoundException;
@@ -13,6 +14,7 @@ import ru.ramanpan.topmusicgroupsweb.services.UserService;
 import ru.ramanpan.topmusicgroupsweb.utils.Constants;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,6 +23,7 @@ public class MusicianServiceImpl implements MusicianService {
     private final MusicianRepo musicianRepo;
     private final TopService topService;
     private final UserService userService;
+    private final ModelMapper modelMapper;
 
     @Override
     public List<Musician> findAllMusician() {
@@ -37,6 +40,18 @@ public class MusicianServiceImpl implements MusicianService {
     @Override
     public Musician findById(Long id) {
         return musicianRepo.findById(id).orElseThrow(() -> new NotFoundException(Constants.MUSICIAN_NOT_FOUND));
+    }
+
+    @Override
+    public List<MusicianDTO> mappedToListDTO(List<Musician> musicians) {
+        List<MusicianDTO> dtoList = new ArrayList<>();
+        for (Musician m : musicians) dtoList.add(modelMapper.map(m, MusicianDTO.class));
+        return dtoList;
+    }
+
+    @Override
+    public MusicianDTO mappedToDTO(Musician musician) {
+        return modelMapper.map(musician,MusicianDTO.class);
     }
 
     @Override

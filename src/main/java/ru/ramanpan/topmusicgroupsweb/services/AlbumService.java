@@ -12,6 +12,10 @@ public interface AlbumService {
 
     void update(AlbumDTO albumDTO);
 
+    List<AlbumDTO> mappedToListDTO(List<Album> albums);
+
+    AlbumDTO mappedToDTO(Album albums);
+
     List<Album> findAll();
 
     List<Album> findAllAlbumsByTop(Long idTop);

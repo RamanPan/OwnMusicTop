@@ -1,6 +1,7 @@
 package ru.ramanpan.topmusicgroupsweb.services.impl;
 
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import ru.ramanpan.topmusicgroupsweb.dto.AlbumDTO;
 import ru.ramanpan.topmusicgroupsweb.exception.NotFoundException;
@@ -13,6 +14,7 @@ import ru.ramanpan.topmusicgroupsweb.services.UserService;
 import ru.ramanpan.topmusicgroupsweb.utils.Constants;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,6 +23,7 @@ public class AlbumServiceImpl implements AlbumService {
     private final AlbumRepo albumRepo;
     private final TopService topService;
     private final UserService userService;
+    private final ModelMapper modelMapper;
 
     @Override
     public void save(AlbumDTO albumDTO) {
@@ -65,6 +68,19 @@ public class AlbumServiceImpl implements AlbumService {
         Top top = topService.findTopById(topId);
         topService.addLook(top);
         return albumRepo.findAllByTop(top);
+    }
+
+    @Override
+    public List<AlbumDTO> mappedToListDTO(List<Album> albums) {
+        List<AlbumDTO> dtoList = new ArrayList<>();
+        for (Album album : albums)
+            dtoList.add(modelMapper.map(album, AlbumDTO.class));
+        return dtoList;
+    }
+
+    @Override
+    public AlbumDTO mappedToDTO(Album albums) {
+        return modelMapper.map(albums, AlbumDTO.class);
     }
 
     @Override

@@ -104,6 +104,16 @@ public class TopServiceImpl implements TopService {
     }
 
     @Override
+    public List<TopDTO> mappedToListDTO(List<Top> tops) {
+        return null;
+    }
+
+    @Override
+    public TopDTO mappedToDTO(Top top) {
+        return null;
+    }
+
+    @Override
     public List<Top> findTopsByAuthor(String author) {
         return topRepo.findAllByAuthor(author);
     }

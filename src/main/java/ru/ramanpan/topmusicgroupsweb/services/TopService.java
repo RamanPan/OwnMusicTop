@@ -23,6 +23,10 @@ public interface TopService {
 
     Page<Top> findAllWithPagination(Pageable pageable);
 
+    List<TopDTO> mappedToListDTO(List<Top> tops);
+
+    TopDTO mappedToDTO(Top top);
+
     void addLike(Long idTop);
 
     void removeLike(Long idTop);

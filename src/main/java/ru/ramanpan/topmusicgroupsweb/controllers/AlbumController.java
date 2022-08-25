@@ -5,7 +5,6 @@ import lombok.NonNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.ramanpan.topmusicgroupsweb.dto.AlbumDTO;
-import ru.ramanpan.topmusicgroupsweb.model.Album;
 import ru.ramanpan.topmusicgroupsweb.services.AlbumService;
 
 import java.util.List;
@@ -35,18 +34,18 @@ public class AlbumController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Album>> getAllAlbums() {
-        return ResponseEntity.ok(albumService.findAll());
+    public ResponseEntity<List<AlbumDTO>> getAllAlbums() {
+        return ResponseEntity.ok(albumService.mappedToListDTO(albumService.findAll()));
     }
 
     @GetMapping("/getByTop/{id}")
-    public ResponseEntity<List<Album>> getAlbumsByTop(@PathVariable("id") Long idTop) {
-        return ResponseEntity.ok(albumService.findAllAlbumsByTop(idTop));
+    public ResponseEntity<List<AlbumDTO>> getAlbumsByTop(@PathVariable("id") Long idTop) {
+        return ResponseEntity.ok(albumService.mappedToListDTO(albumService.findAllAlbumsByTop(idTop)));
     }
 
     @GetMapping("/getByMusician/{group}")
-    public ResponseEntity<List<Album>> getAlbumsByGroup(@PathVariable("group") String group) {
-        return ResponseEntity.ok(albumService.findAlbumsByGroup(group));
+    public ResponseEntity<List<AlbumDTO>> getAlbumsByGroup(@PathVariable("group") String group) {
+        return ResponseEntity.ok(albumService.mappedToListDTO(albumService.findAlbumsByGroup(group)));
     }
 
 
