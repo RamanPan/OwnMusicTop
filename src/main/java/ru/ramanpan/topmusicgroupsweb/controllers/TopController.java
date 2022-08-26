@@ -33,8 +33,8 @@ public class TopController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Top>> getAllTops() {
-        return ResponseEntity.ok(topService.findAll());
+    public ResponseEntity<List<TopDTO>> getAllTops() {
+        return ResponseEntity.ok(topService.mappedToListDTO(topService.findAll()));
     }
 
     @GetMapping("/getAllWithPage")
@@ -43,8 +43,8 @@ public class TopController {
     }
 
     @GetMapping("/getAllByUser/{id}")
-    public ResponseEntity<List<Top>> getAllTopsByUser(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(topService.findTopsByUser(id));
+    public ResponseEntity<List<TopDTO>> getAllTopsByUser(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(topService.mappedToListDTO(topService.findTopsByUser(id)));
     }
 
     @DeleteMapping("/delete/{id}")

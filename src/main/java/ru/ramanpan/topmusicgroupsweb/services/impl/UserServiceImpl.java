@@ -1,6 +1,7 @@
 package ru.ramanpan.topmusicgroupsweb.services.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.ramanpan.topmusicgroupsweb.dto.UserDTO;
@@ -12,6 +13,7 @@ import ru.ramanpan.topmusicgroupsweb.services.UserService;
 import ru.ramanpan.topmusicgroupsweb.utils.Constants;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,6 +21,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
     private final BCryptPasswordEncoder encoder;
+    private final ModelMapper modelMapper;
 
     @Override
     public void registration(UserDTO u) {
@@ -61,6 +64,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
         return userRepo.findById(id).orElseThrow(() -> new NotFoundException(Constants.USER_NOT_FOUND));
+    }
+
+    @Override
+    public List<UserDTO> mappedToListDTO(List<User> users) {
+        List<UserDTO> dtoList = new ArrayList<>();
+        for (User user : users) dtoList.add(modelMapper.map(user, UserDTO.class));
+        return dtoList;
+    }
+
+    @Override
+    public UserDTO mappedToDTO(User user) {
+        UserDTO userDTO = modelMapper.map(user,UserDTO.class);
+        userDTO.setPassword("");
+        return userDTO;
     }
 
     @Override

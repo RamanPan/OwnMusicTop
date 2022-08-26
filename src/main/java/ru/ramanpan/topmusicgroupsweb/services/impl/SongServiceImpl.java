@@ -1,6 +1,7 @@
 package ru.ramanpan.topmusicgroupsweb.services.impl;
 
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import ru.ramanpan.topmusicgroupsweb.dto.SongDTO;
 import ru.ramanpan.topmusicgroupsweb.exception.NotFoundException;
@@ -13,6 +14,7 @@ import ru.ramanpan.topmusicgroupsweb.services.UserService;
 import ru.ramanpan.topmusicgroupsweb.utils.Constants;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,12 +23,13 @@ public class SongServiceImpl implements SongService {
     private final SongRepo songRepo;
     private final TopService topService;
     private final UserService userService;
+    private final ModelMapper modelMapper;
 
     @Override
     public void save(SongDTO songDTO) {
         Song song = new Song();
         Top top = topService.findTopById(songDTO.getIdTop());
-        userService.incrementCountCreatedTops(top.getUser());
+        userService.incrementCountAddedSongs(top.getUser());
         song.setName(songDTO.getName());
         song.setAlbum(songDTO.getAlbum());
         song.setAuthor(songDTO.getAuthor());
@@ -54,6 +57,19 @@ public class SongServiceImpl implements SongService {
         if (topId != null && !topId.equals(song.getTop().getId()))
             song.setTop(topService.findTopById(songDTO.getIdTop()));
         songRepo.save(song);
+    }
+
+    @Override
+    public List<SongDTO> mappedToListDTO(List<Song> songs) {
+        List<SongDTO> dtoList = new ArrayList<>();
+        for (Song song : songs)
+            dtoList.add(modelMapper.map(song, SongDTO.class));
+        return dtoList;
+    }
+
+    @Override
+    public SongDTO mappedToDTO(Song song) {
+        return modelMapper.map(song, SongDTO.class);
     }
 
     @Override

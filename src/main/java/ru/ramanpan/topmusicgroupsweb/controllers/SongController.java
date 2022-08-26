@@ -5,7 +5,6 @@ import lombok.NonNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.ramanpan.topmusicgroupsweb.dto.SongDTO;
-import ru.ramanpan.topmusicgroupsweb.model.Song;
 import ru.ramanpan.topmusicgroupsweb.services.SongService;
 
 import java.util.List;
@@ -29,23 +28,23 @@ public class SongController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Song>> getAllSongs() {
-        return ResponseEntity.ok(songService.findAll());
+    public ResponseEntity<List<SongDTO>> getAllSongs() {
+        return ResponseEntity.ok(songService.mappedToListDTO(songService.findAll()));
     }
 
     @GetMapping("/getByTop/{id}")
-    public ResponseEntity<List<Song>> getSongsByTop(@PathVariable("id") Long idTop) {
-        return ResponseEntity.ok(songService.findAllByTop(idTop));
+    public ResponseEntity<List<SongDTO>> getSongsByTop(@PathVariable("id") Long idTop) {
+        return ResponseEntity.ok(songService.mappedToListDTO(songService.findAllByTop(idTop)));
     }
 
     @GetMapping("/getByMusician/{group}")
-    public ResponseEntity<List<Song>> getSongsByGroup(@PathVariable("group") String group) {
-        return ResponseEntity.ok(songService.findSongsByGroup(group));
+    public ResponseEntity<List<SongDTO>> getSongsByGroup(@PathVariable("group") String group) {
+        return ResponseEntity.ok(songService.mappedToListDTO(songService.findSongsByGroup(group)));
     }
 
     @GetMapping("/getByAlbum")
-    public ResponseEntity<List<Song>> getSongsByAlbum(@RequestBody String album) {
-        return ResponseEntity.ok(songService.findSongsByAlbum(album));
+    public ResponseEntity<List<SongDTO>> getSongsByAlbum(@RequestBody String album) {
+        return ResponseEntity.ok(songService.mappedToListDTO(songService.findSongsByAlbum(album)));
     }
 
     @DeleteMapping("/delete/{id}")

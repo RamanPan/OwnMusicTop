@@ -12,6 +12,9 @@ public interface UserService {
 
     void update(UserDTO u);
 
+    List<UserDTO> mappedToListDTO(List<User> users);
+
+    UserDTO mappedToDTO(User user);
 
     void updatePassword(UserDTO u);
 

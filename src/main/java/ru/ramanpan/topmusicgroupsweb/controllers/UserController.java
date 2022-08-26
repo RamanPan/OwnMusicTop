@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 import ru.ramanpan.topmusicgroupsweb.dto.UserDTO;
-import ru.ramanpan.topmusicgroupsweb.model.User;
 import ru.ramanpan.topmusicgroupsweb.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,8 +43,8 @@ public class UserController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(userService.findAll());
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        return ResponseEntity.ok(userService.mappedToListDTO(userService.findAll()));
     }
 
     @RequestMapping("/logout")

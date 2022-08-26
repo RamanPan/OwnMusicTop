@@ -1,6 +1,7 @@
 package ru.ramanpan.topmusicgroupsweb.services.impl;
 
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import ru.ramanpan.topmusicgroupsweb.services.UserService;
 import ru.ramanpan.topmusicgroupsweb.utils.Constants;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,6 +24,7 @@ import java.util.List;
 public class TopServiceImpl implements TopService {
     private final TopRepo topRepo;
     private final UserService userService;
+    private final ModelMapper modelMapper;
 
     @Override
     public void save(TopDTO topDTO) {
@@ -105,12 +108,14 @@ public class TopServiceImpl implements TopService {
 
     @Override
     public List<TopDTO> mappedToListDTO(List<Top> tops) {
-        return null;
+        List<TopDTO> dtoList = new ArrayList<>();
+        for (Top top : tops) dtoList.add(modelMapper.map(top, TopDTO.class));
+        return dtoList;
     }
 
     @Override
     public TopDTO mappedToDTO(Top top) {
-        return null;
+        return modelMapper.map(top,TopDTO.class);
     }
 
     @Override
