@@ -75,9 +75,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO mappedToDTO(User user) {
-        UserDTO userDTO = modelMapper.map(user,UserDTO.class);
-        userDTO.setPassword("");
-        return userDTO;
+        return modelMapper.map(user, UserDTO.class);
     }
 
     @Override
