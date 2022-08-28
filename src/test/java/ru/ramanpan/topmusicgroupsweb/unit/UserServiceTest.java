@@ -38,9 +38,6 @@ public class UserServiceTest {
     @Test
     public void mapToDTOTest() {
         User user = new User();
-        user.setLogin("Roman");
-        user.setPassword("qwerty");
-        user.setEmail("rama@mail.ru");
         userService.mappedToDTO(user);
         Mockito.verify(modelMapper, Mockito.times(1)).map(user, UserDTO.class);
     }
