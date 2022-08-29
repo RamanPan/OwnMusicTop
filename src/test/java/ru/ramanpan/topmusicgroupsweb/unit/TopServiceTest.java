@@ -29,15 +29,17 @@ public class TopServiceTest {
     @Test
     public void saveTest() {
         TopDTO topDTO = new TopDTO();
-        topDTO.setUserId(1L);
+        Long id = 1L;
+        topDTO.setUserId(id);
         topService.save(topDTO);
-        Mockito.verify(userService, Mockito.times(1)).findById(1L);
+        Mockito.verify(userService, Mockito.times(1)).findById(id);
     }
 
     @Test
     public void findTopsByAuthorTest() {
-        topService.findTopsByAuthor("Roman");
-        Mockito.verify(topRepo, Mockito.times(1)).findAllByAuthor("Roman");
+        String author = "Roman";
+        topService.findTopsByAuthor(author);
+        Mockito.verify(topRepo, Mockito.times(1)).findAllByAuthor(author);
     }
 
     @Test

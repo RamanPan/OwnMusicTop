@@ -30,9 +30,10 @@ public class UserServiceTest {
     @Test
     public void registrationTest() {
         UserDTO userDTO = new UserDTO();
-        userDTO.setPassword("qwerty");
+        String password = "qwerty";
+        userDTO.setPassword(password);
         userService.registration(userDTO);
-        Mockito.verify(encoder, Mockito.times(1)).encode("qwerty");
+        Mockito.verify(encoder, Mockito.times(1)).encode(password);
     }
 
     @Test

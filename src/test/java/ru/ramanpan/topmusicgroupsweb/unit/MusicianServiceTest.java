@@ -28,8 +28,9 @@ public class MusicianServiceTest {
 
     @Test
     public void findAllByTopTest() {
-        musicianService.findAllMusicianByTop(1L);
-        Mockito.verify(topService, Mockito.times(1)).findTopById(1L);
+        Long id = 1L;
+        musicianService.findAllMusicianByTop(id);
+        Mockito.verify(topService, Mockito.times(1)).findTopById(id);
     }
 
     @Test
@@ -41,7 +42,8 @@ public class MusicianServiceTest {
 
     @Test
     public void deleteTest() {
-        musicianService.delete(1L);
-        Mockito.verify(musicianRepo, Mockito.times(1)).deleteById(1L);
+        Long id = 1L;
+        musicianService.delete(id);
+        Mockito.verify(musicianRepo, Mockito.times(1)).deleteById(id);
     }
 }

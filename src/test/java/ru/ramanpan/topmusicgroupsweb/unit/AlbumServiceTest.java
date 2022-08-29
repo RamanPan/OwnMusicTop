@@ -25,9 +25,11 @@ public class AlbumServiceTest {
 
     @Test
     public void findAlbumsByGroupTest() {
-        albumService.findAlbumsByGroup("Disturbed");
-        Mockito.verify(albumRepo, Mockito.times(1)).findAllByMusicGroup("Disturbed");
+        String group = "Disturbed";
+        albumService.findAlbumsByGroup(group);
+        Mockito.verify(albumRepo, Mockito.times(1)).findAllByMusicGroup(group);
     }
+
     @Test
     public void mapToDTOTest() {
         Album album = new Album();
@@ -37,7 +39,8 @@ public class AlbumServiceTest {
 
     @Test
     public void deleteTest() {
-        albumService.delete(1L);
-        Mockito.verify(albumRepo, Mockito.times(1)).deleteById(1L);
+        Long id = 1L;
+        albumService.delete(id);
+        Mockito.verify(albumRepo, Mockito.times(1)).deleteById(id);
     }
 }
