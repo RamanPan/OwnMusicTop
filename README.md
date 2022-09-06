@@ -1,6 +1,6 @@
 # OwnMusicTop
 ## Разработка веб-ресурса для составления собственных топов музыкальных групп, альбомов, песен
-### Stack 
+### Project Stack 
 1. Java 11
 2. SpringBoot 2.7.2
 3. PostgresSQL 14.4
